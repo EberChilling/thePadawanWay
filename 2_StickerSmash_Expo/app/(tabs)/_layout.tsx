@@ -4,7 +4,15 @@ import Ionicons from '@expo/vector-icons/Ionicons'; // Library used to add icons
 export default function TabLayout(){
     return (
         // Activate a yellow color in the bottom tabs to know in which tab you are possitioned
-        <Tabs screenOptions={{ tabBarActiveTintColor: '#ffd33d'}}> 
+        <Tabs screenOptions={{ 
+                tabBarActiveTintColor: '#E4BE9E',
+                headerStyle: {backgroundColor: '#25292e'},
+                headerShadowVisible: false,
+                headerTintColor: '#fff',
+                tabBarStyle: { backgroundColor: '#25292e'},
+            
+            }}
+        > 
 
             <Tabs.Screen 
             name="index" 
