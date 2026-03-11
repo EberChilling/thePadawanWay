@@ -2,6 +2,7 @@ import { Text, View , StyleSheet } from "react-native";
 import { Link } from "expo-router" //Allows you to change from one page to another using links
 import { Image } from 'expo-image' // This library is used to add images to the screen
 
+import ImageViewer  from "@/app-example/components/ImageViewer"; // After creating a new component, it is added to index so it can be used
 //Using a constant name for the direction of the image we want to use:
 const PlaceHolderImage = require('@/assets/images/background-image.png');
 
@@ -12,7 +13,7 @@ export default function Index() {
       <Link href="/about" style= {styles.button}>Go to About Screen</Link>
 
     <View style = {styles.imageContainer}>
-        <Image source={PlaceHolderImage} style= {styles.image} />
+        <ImageViewer imgSource={PlaceHolderImage}  />
     </View>
 
     </View>
@@ -39,10 +40,5 @@ const styles = StyleSheet.create({
   // Creating container for the Image
   imageContainer:{
     flex:1,
-  },
-  image:{
-    width:320,
-    height:440,
-    borderRadius: 100,
   },
 });
