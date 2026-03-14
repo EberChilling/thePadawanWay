@@ -8,9 +8,10 @@ import ImageViewer  from "@/components/ImageViewer"; // After creating a new com
 
 import Button from "@/components/Button"; // From components folder, a button feature is added.
 
+import * as ImagePicker from 'expo-image-picker'; // Capabilities for selecting a new image
 
 
-
+import { useState } from 'react';
 
 
 
@@ -18,6 +19,31 @@ import Button from "@/components/Button"; // From components folder, a button fe
 const PlaceHolderImage = require('@/assets/images/background-image.png');
 
 export default function Index() {
+
+  const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
+
+  //New function used to pick image from library:
+  const pickImageAsync = async () => {
+
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if(!result.canceled){
+      console.log(result);
+      setSelectedImage(result.assets[0].uri);
+
+    }
+    else{
+      alert('You did not select any image.')
+    }
+
+  };
+
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home Screen</Text>
@@ -26,12 +52,12 @@ export default function Index() {
 
 
       <View style = {styles.imageContainer}>
-        <ImageViewer imgSource={PlaceHolderImage}  />
+        <ImageViewer imgSource={selectedImage || PlaceHolderImage} selectedImage={selectedImage}/>
       </View>
 
 
-      <View>
-        <Button theme="primary" label="Choose a photo" />
+      <View style={styles.footContainer}>
+        <Button theme="primary" label="Choose a photo" onPress={pickImageAsync} />
         <Button label= "Use this photo" />
       </View>
 

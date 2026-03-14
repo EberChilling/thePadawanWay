@@ -9,9 +9,14 @@ import { Image } from 'expo-image';
 /*
     In React, props (short for properties) are a mechanism for passing data from a parent component to a child component. They are a fundamental concept for making components reusable, dynamic, and for facilitating communication within the component hierarchy
 */
-type Props = {imgSource : ImageSourcePropType; };
+type Props = {
+    imgSource : ImageSourcePropType; 
+    selectedImage?: string; // This part of the image selected didn´t work as expected
+};
 
-export default function ImageViewer ({imgSource} : Props){
+export default function ImageViewer ({imgSource, selectedImage} : Props){
+    const imageSource = selectedImage? {uri:selectedImage} : imgSource;
+    
     return <Image source={imgSource} style={styles.image} />;
 
 }
