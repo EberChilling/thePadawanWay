@@ -21,7 +21,7 @@ const PlaceHolderImage = require('@/assets/images/background-image.png');
 export default function Index() {
 
   const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
-
+  const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
   //New function used to pick image from library:
   const pickImageAsync = async () => {
 
@@ -55,12 +55,19 @@ export default function Index() {
         <ImageViewer imgSource={selectedImage || PlaceHolderImage} selectedImage={selectedImage}/>
       </View>
 
-
+      {showAppOptions ? (
+        //If showAppOptions is TRUE, then show this:
+        <View />
+      
+      ) :(
+        // Otherwise show the following:
       <View style={styles.footContainer}>
         <Button theme="primary" label="Choose a photo" onPress={pickImageAsync} />
-        <Button label= "Use this photo" />
+        <Button label= "Use this photo"  onPress={() => setShowAppOptions(true)}/>
       </View>
 
+      //Finish conditional
+      )}
 
     </View>
 
