@@ -1,11 +1,11 @@
-import { Text, View , StyleSheet } from "react-native";
+import { Text, View , StyleSheet} from "react-native";
 import { Link } from "expo-router" //Allows you to change from one page to another using links
 
 /* NOT USED ANY MORE SINCE THE "ImageViewer" component was created */
 import { Image } from 'expo-image' // This library is used to add images to the screen
 
 
-import Button from "@/components/Button"; // From components folder, a button feature is added.
+
 
 import * as ImagePicker from 'expo-image-picker'; // Capabilities for selecting a new image
 
@@ -13,9 +13,11 @@ import * as ImagePicker from 'expo-image-picker'; // Capabilities for selecting 
 import { useState } from 'react';
 
 //COMPONENTS CREATED BY US:
+import Button from "@/components/Button"; // From components folder, a button feature is added.
 import ImageViewer  from "@/components/ImageViewer"; // After creating a new component, it is added to index so it can be used
 import IconButton from "@/components/IconButton";
 import CircleButton from "@/components/CircleButton";
+import EmojiPicker from "@/components/EmojiPicker";
 
 //Using a constant name for the direction of the image we want to use:
 const PlaceHolderImage = require('@/assets/images/background-image.png');
@@ -24,6 +26,7 @@ export default function Index() {
 
   const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
+  const [isModalVisible, setModalVisible] = useState<boolean>(false);
 
   /********************************************************************/
   //New function used to pick image from library:
@@ -51,11 +54,15 @@ export default function Index() {
   };
 
   /********************************************************************/
-  const onAddSticker = () => {}
+  const onAddSticker = () => {
+    setModalVisible(true);
+  }
+  /********************************************************************/
+  const onModalClose = () => {
+    setModalVisible(false);
+  }
   /********************************************************************/
   const onSaveImageAsync = async () => {}
-  /********************************************************************/
-
   /********************************************************************/
 
   /********************************************************************/
@@ -79,17 +86,19 @@ export default function Index() {
             <IconButton icon="save-alt" label="save" onPress={onSaveImageAsync} />
           </View>
         </View>
-       
-      
       ) :(
         // Otherwise show the following:
-      <View style={styles.footContainer}>
-        <Button theme="primary" label="Choose a photo" onPress={pickImageAsync} />
-        <Button label= "Use this photo"  onPress={() => setShowAppOptions(true)}/>
-      </View>
-
-      //Finish conditional
+        <View style={styles.footContainer}>
+          <Button theme="primary" label="Choose a photo" onPress={pickImageAsync} />
+          <Button label= "Use this photo"  onPress={() => setShowAppOptions(true)}/>
+        </View>
+        //Finish conditional
       )}
+
+    
+      <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
+        {/* The functionality of the emojis would be here */}
+      </EmojiPicker>
 
     </View>
 
