@@ -1,4 +1,4 @@
-import { Text, View , StyleSheet} from "react-native";
+import { Text, View , StyleSheet, ImageSource, ImageSourcePropType} from "react-native";
 import { Link } from "expo-router" //Allows you to change from one page to another using links
 
 /* NOT USED ANY MORE SINCE THE "ImageViewer" component was created */
@@ -18,6 +18,7 @@ import ImageViewer  from "@/components/ImageViewer"; // After creating a new com
 import IconButton from "@/components/IconButton";
 import CircleButton from "@/components/CircleButton";
 import EmojiPicker from "@/components/EmojiPicker";
+import EmojiList from "@/components/EmojisList";
 
 //Using a constant name for the direction of the image we want to use:
 const PlaceHolderImage = require('@/assets/images/background-image.png');
@@ -27,6 +28,7 @@ export default function Index() {
   const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
   const [isModalVisible, setModalVisible] = useState<boolean>(false);
+  const [pickedEmoji, setPickedEmoji] = useState<ImageSourcePropType | undefined>(undefined);
 
   /********************************************************************/
   //New function used to pick image from library:
@@ -98,6 +100,7 @@ export default function Index() {
     
       <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
         {/* The functionality of the emojis would be here */}
+        <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
       </EmojiPicker>
 
     </View>
